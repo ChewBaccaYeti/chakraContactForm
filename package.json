@@ -1,0 +1,40 @@
+{
+  "name": "chakracontactform",
+  "version": "1.0.0",
+  "description": "This repo dedicated to Chakra Contact Form with Nodemailer SMTP manifest. V.M.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChewBaccaYeti/chakraContactForm.git"
+  },
+  "keywords": [
+    "chakra_nodemailer"
+  ],
+  "author": "Venedykt Mitishov.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChewBaccaYeti/chakraContactForm/issues"
+  },
+  "homepage": "https://github.com/ChewBaccaYeti/chakraContactForm#readme",
+  "dependencies": {
+    "@chakra-ui/react": "^2.3.6",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "framer-motion": "^6.5.1",
+    "next": "13.0.0",
+    "nodemailer": "^6.8.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "eslint": "8.26.0",
+    "eslint-config-next": "13.0.0"
+  }
+}
