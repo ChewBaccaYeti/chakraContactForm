@@ -1,4 +1,5 @@
-import { React, useState } from 'react';
+import { useState } from 'react';
+// import express from 'express';
 import {
     Button,
     Container,
@@ -12,6 +13,16 @@ import {
     useToast,
 } from "@chakra-ui/react";
 import { sendContactForm } from "../lib/api";
+// import configureMiddleware from '../lib/middleware';
+// import handler from './api/contact';
+
+// const app = express();
+
+// configureMiddleware(app);
+
+// app.post('/api/contact', handler).listen(3000, () => {
+//     console.log('Server is running on port 3000');
+// });
 
 const initValues = { name: '', email: '', subject: '', message: '' };
 const initState = { values: initValues };
