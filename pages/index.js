@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { React, useState } from "react";
 import {
     Button,
     Container,
@@ -13,20 +13,8 @@ import {
 } from "@chakra-ui/react";
 import { sendContactForm } from "../lib/api";
 
-// import express from 'express';
-// import configureMiddleware from '../lib/middleware';
-// import handler from './api/contact';
-
-// const app = express();
-
-// configureMiddleware(app);
-
-// app.post('/api/contact', handler).listen(3000, () => {
-//     console.log('Server is running on port 3000');
-// });
-
-const initValues = { name: '', email: '', subject: '', message: '' };
-const initState = { values: initValues };
+const initValues = { name: "", email: "", subject: "", message: "" };
+const initState = { isLoading: false, error: "", values: initValues };
 
 export default function Home() {
     const toast = useToast();
@@ -34,40 +22,27 @@ export default function Home() {
     const [touched, setTouched] = useState({});
     const { values, isLoading, error } = state;
 
-    const onBlur = ({ target }) => {
-        console.log("onBlur called");
-        setTouched((prev) => ({
-            ...prev,
-            [target.name]: true
-        }), console.log(onBlur));
-    };
+    const onBlur = ({ target }) => setTouched((prev) => ({ ...prev, [target.name]: true }));
 
-    const handleChange = ({ target }) => {
-        console.log("handleChange called");
-        console.log(values)
-        setState((prev) => ({
-            ...prev,
-            values: {
-                ...prev.values,
-                [target.name]: target.value.trim(),
-            },
-        }), console.log(handleChange));
-    };
+    const handleChange = ({ target }) => setState((prev) => ({
+        ...prev,
+        values: { ...prev.values, [target.name]: target.value }
+    }));
 
     const onSubmit = async () => {
         setState((prev) => ({
             ...prev,
             isLoading: true
-        }))
+        }));
         try {
             await sendContactForm(values);
             setTouched({});
             setState(initState);
             toast({
-                title: 'Message sent.',
-                status: 'success',
+                title: "Message sent.",
+                status: "success",
                 duration: 2000,
-                position: 'top',
+                position: "top",
             });
         } catch (error) {
             setState((prev) => ({
@@ -75,16 +50,12 @@ export default function Home() {
                 isLoading: false,
                 error: error.message,
             }));
+            return console.log(error, error.body);
         }
-        console.log(onSubmit);
-        console.log(values);
     };
 
-    console.log("values:", values);
-    console.log("trimmed values:", Object.values(values).map(value => value.trim()));
-
     return (
-        <Container maxW='450px' mt={12}>
+        <Container maxW="450px" mt={12}>
             <Heading>Contact</Heading>
 
             {error && (
@@ -96,9 +67,9 @@ export default function Home() {
             <FormControl isRequired isInvalid={touched.name && !values.name} mb={5}>
                 <FormLabel>Name</FormLabel>
                 <Input
-                    type='text'
-                    name='name'
-                    errorBorderColor='red.300'
+                    type="text"
+                    name="name"
+                    errorBorderColor="red.300"
                     value={values.name}
                     onChange={handleChange}
                     onBlur={onBlur} />
@@ -108,8 +79,8 @@ export default function Home() {
             <FormControl isRequired isInvalid={touched.email && !values.email} mb={5}>
                 <FormLabel>E-mail</FormLabel>
                 <Input
-                    type='email'
-                    name='email'
+                    type="email"
+                    name="email"
                     value={values.email}
                     onChange={handleChange}
                     onBlur={onBlur} />
@@ -119,8 +90,8 @@ export default function Home() {
             <FormControl isRequired isInvalid={touched.subject && !values.subject} mb={5}>
                 <FormLabel>Subject</FormLabel>
                 <Input
-                    type='text'
-                    name='subject'
+                    type="text"
+                    name="subject"
                     value={values.subject}
                     onChange={handleChange}
                     onBlur={onBlur} />
@@ -130,8 +101,8 @@ export default function Home() {
             <FormControl isRequired isInvalid={touched.message && !values.message} mb={5}>
                 <FormLabel>Message</FormLabel>
                 <Textarea
-                    type='text'
-                    name='message'
+                    type="text"
+                    name="message"
                     rows={4}
                     value={values.message}
                     onChange={handleChange}
@@ -140,17 +111,16 @@ export default function Home() {
             </FormControl>
 
             <Button
-                variant='ghost'
-                colorScheme='teal'
-                size='md'
+                variant="ghost"
+                colorScheme="teal"
+                size="md"
                 isLoading={isLoading}
-                disabled={!Object.values(values).some(value => value.trim())}
+                disabled={!values.name || !values.email || !values.subject || !values.message}
                 onClick={onSubmit}
             >
-                {' '}
+                {" "}
                 Submit
             </Button>
-
         </Container>
     );
 };
