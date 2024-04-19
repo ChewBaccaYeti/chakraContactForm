@@ -164,9 +164,7 @@ const generateEmailContent = (data) => {
     return {
         text: stringData,
         html: html,
-    },
-        console.log(stringData),
-        console.log(htmlData);
+    }
 };
 
 const handler = async (req, res) => {

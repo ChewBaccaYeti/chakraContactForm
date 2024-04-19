@@ -54,6 +54,20 @@ export default function Home() {
         }
     };
 
+    { console.log("Values:", values) }
+    { console.log("Touched:", touched) }
+    {
+        console.log("Disabled:", isLoading
+            || !(values.name
+                && touched.name
+                && values.email
+                && touched.email
+                && values.subject
+                && touched.subject
+                && values.message
+                && touched.message))
+    }
+
     return (
         <Container maxW="450px" mt={12}>
             <Heading>Contact</Heading>
